@@ -1,6 +1,6 @@
 # Definição das variáveis
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Iinc -g
+CXXFLAGS = -Wall -Wextra -Iinc -g -std=c++11
 SRC_DIR = src
 INC_DIR = inc
 OBJ_DIR = obj
