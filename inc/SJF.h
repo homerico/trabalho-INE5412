@@ -1,16 +1,15 @@
+
 #ifndef TRABALHO_INE5412_SJF_H
 #define TRABALHO_INE5412_SJF_H
 
 #include "Scheduler.h"
 
-// shortest job first header
-class SJF : Scheduler {
+class SJF : public Scheduler {
 public:
-    SJF();
-    ~SJF();
+    SJF() {};
+    ~SJF() {delete this;};
 private:
 
 };
-
 
 #endif //TRABALHO_INE5412_SJF_H
