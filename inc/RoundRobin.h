@@ -5,7 +5,7 @@
 
 class RoundRobin: public Scheduler {
 public:
-    RoundRobin() {};
+    RoundRobin(std::vector<ProcessParams *> &processes);
     ~RoundRobin() = default;
 };
 

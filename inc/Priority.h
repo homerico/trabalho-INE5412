@@ -6,7 +6,7 @@
 
 class Priority: public Scheduler {
 public:
-    Priority() {};
+    Priority(std::vector<ProcessParams *> &processes);
     ~Priority() = default;
 
 };

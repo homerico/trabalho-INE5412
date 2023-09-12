@@ -2,6 +2,8 @@
 #ifndef TRABALHO_INE5412_PROCESSPARAMS_H
 #define TRABALHO_INE5412_PROCESSPARAMS_H
 
+#include <ostream>
+
 class ProcessParams
 {
 public:

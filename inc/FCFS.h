@@ -9,7 +9,7 @@ using namespace std;
 
 class FCFS: public Scheduler{
 public:
-    FCFS() = default;
+    FCFS(vector<ProcessParams *> &processes);
     ~FCFS() = default;
     void schedule() override;
 protected:

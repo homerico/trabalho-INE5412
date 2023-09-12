@@ -6,7 +6,7 @@
 
 class PriorityWithPreemption: public Scheduler {
 public:
-    PriorityWithPreemption() {};
+    PriorityWithPreemption(std::vector<ProcessParams *> &processes);
     ~PriorityWithPreemption() = default;
 };
 

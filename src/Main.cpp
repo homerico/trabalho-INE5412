@@ -12,7 +12,7 @@ class File
 {
 
 public:
-    File(const string path) {
+    explicit File(const string& path) {
         cout << "Abrindo arquivo " << path << endl;
         cout << endl;
         myfile.open(path.c_str());
@@ -30,7 +30,7 @@ public:
         }
 
         while (myfile >> a >> b >> c) {
-            ProcessParams *p = new ProcessParams(a, b, c);
+            auto *p = new ProcessParams(a, b, c);
             processes.push_back(p);
         }
 
@@ -38,9 +38,8 @@ public:
     }
 
     void print_processes_params() {
-        vector<ProcessParams *>::iterator iter = processes.begin();
-
-        for(iter; iter < processes.end(); iter++) {
+        auto iter = processes.begin();
+        for (; iter < processes.end(); iter++) {
             ProcessParams *p = *iter;
             cout << *p;
         }
@@ -51,8 +50,7 @@ public:
     }
 
     ~File() {
-        for(int i = 0; i < processes.size() ; i++) {
-            ProcessParams *p = processes[i];
+        for (auto p : processes) {
             delete p;
         }
     }
@@ -90,10 +88,10 @@ int main () {
         }
 
         if (option == 6) {
-            cout << "Saindo..." << endl;
+            cout << "Saindo" << endl;
             break;
         } else if (option < 1 || option > 6) {
-            cout << "Opção inválida!" << endl;
+            cout << "\033[31m" << "Opção inválida!" << "\033[0m" << endl;
             cout << endl;
         }
 
@@ -102,4 +100,4 @@ int main () {
     } while (true);
 
     return 0;
-};
+}

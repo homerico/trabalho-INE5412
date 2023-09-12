@@ -6,7 +6,7 @@
 
 class SJF : public Scheduler {
 public:
-    SJF() {};
+    SJF(std::vector<ProcessParams *> &processes);
     ~SJF() = default;
 private:
 

@@ -18,11 +18,13 @@ class CPU
 public:
     CPU(int alg, const vector<ProcessParams *> & processes) {
         type = Scheduler::Type(alg);
-        scheduler = getScheduler();
         this->processes = processes;
+        scheduler = getScheduler();
     }
 
-    ~CPU() = default;
+    ~CPU() {
+        delete scheduler;
+    };
 
     void run();
 
