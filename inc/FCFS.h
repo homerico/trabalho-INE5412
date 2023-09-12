@@ -12,6 +12,7 @@ public:
     FCFS(vector<ProcessParams *> &processes);
     ~FCFS() = default;
     void schedule() override;
+    void execute() override;
 protected:
 private:
 };

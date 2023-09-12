@@ -14,8 +14,20 @@ public:
     }
 
     friend std::ostream &operator<<(std::ostream& os, const ProcessParams& p) {
-        os << "Creation time = " << p.creation_time << " duration = " << p.duration << " Priority = " << p.priority << std::endl;
+        os << "Creation time = " << p.creation_time << " Duration = " << p.duration << " Priority = " << p.priority << std::endl;
         return os;
+    }
+
+    int getCreationTime() {
+        return creation_time;
+    }
+
+    int getDuration() {
+        return duration;
+    }
+
+    int getPriority() {
+        return priority;
     }
 
 private:
