@@ -11,7 +11,8 @@ using namespace std;
 
 void CPU::run() {
     cout << "CPU " << id << ": Running" << endl;
-    //scheduler->schedule();
+    scheduler->schedule();
+    scheduler->execute();
     cout << "CPU " << id << ": Finished" << endl;
 }
 
@@ -31,4 +32,9 @@ Scheduler *CPU::getScheduler() {
             cout << "CPU " << id << ": Invalid scheduler" << endl;
             return nullptr;
     }
+}
+
+void CPU::workIn(ProcessParams *process) {
+    cout << "CPU " << id << ": Working in " << *process << endl;
+
 }

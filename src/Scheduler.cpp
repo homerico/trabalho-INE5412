@@ -4,10 +4,10 @@
 
 using namespace std;
 
-bool Scheduler::is_preemptive() {
-    return preemptive;
+void Scheduler::schedule() {
+
 }
 
-void Scheduler::schedule() {
+void Scheduler::execute() {
 
 }

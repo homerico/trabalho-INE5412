@@ -12,7 +12,6 @@
 #include "PriorityWithPreemption.h"
 #include "RoundRobin.h"
 
-using namespace std;
 class CPU
 {
 public:
@@ -28,13 +27,19 @@ public:
 
     void run();
 
-protected:
+    void workIn(ProcessParams * process);
+
 private:
-    Scheduler * getScheduler();
+    // static variables
+    const char* id = "INE5412";
+
+    // instance variables
     Scheduler * scheduler;
     Scheduler::Type type;
     vector<ProcessParams *> processes;
-    const char* id = "INE5412";
+
+    // methods
+    Scheduler * getScheduler();
 };
 
 #endif //TRABALHO_INE5412_CPU_H
