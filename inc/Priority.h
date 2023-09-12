@@ -1,14 +1,14 @@
-//
-// Created by homerico on 08/09/23.
-//
 
 #ifndef TRABALHO_INE5412_PRIORITY_H
 #define TRABALHO_INE5412_PRIORITY_H
 
+#include "Scheduler.h"
 
-class priority {
+class Priority: public Scheduler {
+public:
+    Priority() {};
+    ~Priority() = default;
 
 };
-
 
 #endif //TRABALHO_INE5412_PRIORITY_H

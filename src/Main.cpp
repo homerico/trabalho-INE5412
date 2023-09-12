@@ -3,33 +3,10 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "schedulers/fcfs.h"
-#include "schedulers/sjf.h"
-#include "schedulers/priority.h"
-#include "schedulers/priority_with_preemption.h"
-#include "schedulers/round_robin.h"
+#include "ProcessParams.h"
+#include "CPU.h"
 
 using namespace std;
-
-class ProcessParams
-{
-public:
-    ProcessParams(int c, int d, int p) {
-        creation_time = c;
-        duration = d;
-        priority = p;
-    }
-
-    friend ostream &operator<<(ostream& os, const ProcessParams& p) {
-        os << "Creation time = " << p.creation_time << " duration = " << p.duration << " priority = " << p.priority << endl;
-        return os;
-    }
-
-private:
-    int creation_time;
-    int duration; //seconds
-    int priority;
-};
 
 class File
 {
@@ -105,38 +82,24 @@ int main () {
         cin >> option;
         cout << endl;
 
-        // Caso o usuário digite uma letra ou frase
+        // Caso o usuário digite uma string
         if (cin.fail()) {
             cin.clear();
             cin.ignore(256,'\n');
             option = 0;
         }
 
-        switch (option) {
-            case 1:
-                // TODO: implementar FCFS
-                break;
-            case 2:
-                // TODO: implementar SJF
-                break;
-            case 3:
-                // TODO: implementar por prioridade, sem preempção
-                break;
-            case 4:
-                // TODO: implementar por prioridade, com preempção por prioridade
-                break;
-            case 5:
-                // TODO: implementar Round-Robin com quantum = 2s, sem prioridade
-                break;
-            case 6:
-                cout << "Saindo" << endl;
-                break;
-            default:
-                cout << "\033[31m" << "Opção inválida!" << "\033[0m" << std::endl;
-                cout << endl;
-                break;
+        if (option == 6) {
+            cout << "Saindo..." << endl;
+            break;
+        } else if (option < 1 || option > 6) {
+            cout << "Opção inválida!" << endl;
+            cout << endl;
         }
-    } while (option != 6);
+
+        CPU cpu(option, f.get_processes_params());
+        cpu.run();
+    } while (true);
 
     return 0;
 };
