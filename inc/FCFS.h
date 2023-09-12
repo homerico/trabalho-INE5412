@@ -9,6 +9,8 @@ using namespace std;
 
 class FCFS: public Scheduler{
 public:
+    FCFS() = default;
+    ~FCFS() = default;
     void schedule() override;
 protected:
 private:

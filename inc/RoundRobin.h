@@ -6,7 +6,7 @@
 class RoundRobin: public Scheduler {
 public:
     RoundRobin() {};
-    ~RoundRobin() {delete this;};
+    ~RoundRobin() = default;
 };
 
 #endif //TRABALHO_INE5412_ROUNDROBIN_H

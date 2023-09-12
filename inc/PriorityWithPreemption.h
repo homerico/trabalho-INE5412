@@ -7,7 +7,7 @@
 class PriorityWithPreemption: public Scheduler {
 public:
     PriorityWithPreemption() {};
-    ~PriorityWithPreemption() {delete this;};
+    ~PriorityWithPreemption() = default;
 };
 
 #endif //TRABALHO_INE5412_PRIORITYWITHPREEMPTION_H

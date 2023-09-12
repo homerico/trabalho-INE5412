@@ -7,7 +7,7 @@
 class Priority: public Scheduler {
 public:
     Priority() {};
-    ~Priority() {delete this;};
+    ~Priority() = default;
 
 };
 

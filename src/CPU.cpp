@@ -11,24 +11,24 @@ using namespace std;
 
 void CPU::run() {
     cout << "CPU " << id << ": Running" << endl;
+    //scheduler->schedule(processes);
+    cout << "CPU " << id << ": Finished" << endl;
+}
+
+Scheduler *CPU::getScheduler() {
     switch (this->type) {
         case Scheduler::FCFS:
-            FCFS().schedule();
-            break;
+            return new FCFS();
         case Scheduler::SJF:
-            SJF().schedule();
-            break;
+            return new SJF();
         case Scheduler::Priority:
-            Priority().schedule();
-            break;
+            return new Priority();
         case Scheduler::PriorityWithPreemption:
-            PriorityWithPreemption().schedule();
-            break;
+            return new PriorityWithPreemption();
         case Scheduler::RoundRobin:
-            RoundRobin().schedule();
-            break;
+            return new RoundRobin();
         default:
             cout << "CPU " << id << ": Invalid scheduler" << endl;
+            return nullptr;
     }
-    cout << "CPU " << id << ": Finished" << endl;
 }

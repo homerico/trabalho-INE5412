@@ -18,7 +18,7 @@ class CPU
 public:
     CPU(int alg, const vector<ProcessParams *> & processes) {
         type = Scheduler::Type(alg);
-        cout << type << endl;
+        scheduler = getScheduler();
         this->processes = processes;
     }
 
@@ -28,6 +28,8 @@ public:
 
 protected:
 private:
+    Scheduler * getScheduler();
+    Scheduler * scheduler;
     Scheduler::Type type;
     vector<ProcessParams *> processes;
     const char* id = "INE5412";

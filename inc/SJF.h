@@ -7,7 +7,7 @@
 class SJF : public Scheduler {
 public:
     SJF() {};
-    ~SJF() {delete this;};
+    ~SJF() = default;
 private:
 
 };

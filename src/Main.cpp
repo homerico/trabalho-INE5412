@@ -51,7 +51,6 @@ public:
     }
 
     ~File() {
-        cout << "Fechando arquivo" << endl;
         for(int i = 0; i < processes.size() ; i++) {
             ProcessParams *p = processes[i];
             delete p;
@@ -98,9 +97,7 @@ int main () {
             cout << endl;
         }
 
-        cout << "teta" << endl;
         CPU cpu(option, f.get_processes_params());
-        cout << "teta2" << endl;
         cpu.run();
     } while (true);
 

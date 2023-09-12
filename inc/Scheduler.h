@@ -7,7 +7,7 @@
 class Scheduler {
 public:
     Scheduler() {preemptive = false;};
-    ~Scheduler() {delete this;};
+    ~Scheduler() = default;
     enum Type {FCFS = 1, SJF, Priority, PriorityWithPreemption, RoundRobin};
     bool is_preemptive();
     virtual void schedule();
