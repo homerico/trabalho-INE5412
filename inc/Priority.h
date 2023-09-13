@@ -4,11 +4,11 @@
 
 #include "Scheduler.h"
 
-class Priority: public Scheduler {
+class Priority : public Scheduler {
 public:
-    Priority(std::vector<ProcessParams *> &processes);
-    ~Priority() = default;
+    Priority() : Scheduler() {};
 
+    std::pair<Process *, int> schedule(std::vector<Process *> &runningProcesses) override;
 };
 
 #endif //TRABALHO_INE5412_PRIORITY_H

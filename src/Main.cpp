@@ -45,7 +45,7 @@ public:
         }
     }
 
-    vector<ProcessParams *> get_processes_params() {
+    vector<ProcessParams *> getProcessParams() {
         return processes;
     }
 
@@ -95,7 +95,7 @@ int main () {
             cout << endl;
         }
 
-        CPU cpu(option, f.get_processes_params());
+        CPU cpu(option, f.getProcessParams());
         cpu.run();
     } while (true);
 

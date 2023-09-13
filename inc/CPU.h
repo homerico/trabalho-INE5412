@@ -12,34 +12,49 @@
 #include "PriorityWithPreemption.h"
 #include "RoundRobin.h"
 
-class CPU
-{
+class CPU {
 public:
-    CPU(int alg, const vector<ProcessParams *> & processes) {
+    CPU(int alg, const std::vector<ProcessParams *> &processParams) {
         type = Scheduler::Type(alg);
-        this->processes = processes;
         scheduler = getScheduler();
+        runningTime = 0;
+
+        for (unsigned i = 0; i < processParams.size(); i++) {
+            ProcessParams processParams1 = *processParams[i];
+            processes.push_back(new Process(processParams1, i));
+        }
     }
 
     ~CPU() {
         delete scheduler;
+        for (auto p : processes) {
+            delete p;
+        }
     };
 
     void run();
 
-    void workIn(ProcessParams * process);
-
 private:
     // static variables
-    const char* id = "INE5412";
+    const char *id = "INE5412";
 
     // instance variables
-    Scheduler * scheduler;
+    int runningTime;
+    Scheduler *scheduler;
     Scheduler::Type type;
-    vector<ProcessParams *> processes;
+    std::vector<Process *> processes;
+    std::vector<Process *> runningProcesses;
 
     // methods
-    Scheduler * getScheduler();
+    bool isFinished();
+
+    Scheduler *getScheduler();
+
+    void processesToReadyInTime();
+
+    void unblockProcesses();
+
+    void updateRunningProcesses();
 };
 
 #endif //TRABALHO_INE5412_CPU_H
