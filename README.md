@@ -17,3 +17,4 @@ Trabalho para disciplina de Sistemas Operacionais I - INE5412
          --verbose \
          --log-file=valgrind-out.txt \
          ./bin/main
+
