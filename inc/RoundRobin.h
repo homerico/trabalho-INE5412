@@ -3,10 +3,11 @@
 
 #include "Scheduler.h"
 
-class RoundRobin: public Scheduler {
+class RoundRobin : public Scheduler {
 public:
-    RoundRobin(std::vector<ProcessParams *> &processes);
-    ~RoundRobin() = default;
+    RoundRobin() : Scheduler() {};
+
+    std::pair<Process *, int> schedule(std::vector<Process *> &runningProcesses) override;
 };
 
 #endif //TRABALHO_INE5412_ROUNDROBIN_H

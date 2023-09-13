@@ -5,16 +5,11 @@
 #include <iostream>
 #include "Scheduler.h"
 
-using namespace std;
-
-class FCFS: public Scheduler{
+class FCFS : public Scheduler {
 public:
-    FCFS(vector<ProcessParams *> &processes);
-    ~FCFS() = default;
-    void schedule() override;
-    void execute() override;
-protected:
-private:
+    explicit FCFS() : Scheduler() {};
+
+    std::pair<Process *, int> schedule(std::vector<Process *> &runningProcesses) override;
 };
 
 #endif //TRABALHO_INE5412_FCFS_H

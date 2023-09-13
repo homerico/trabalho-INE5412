@@ -1,5 +1,6 @@
 
 #include "PriorityWithPreemption.h"
 
-PriorityWithPreemption::PriorityWithPreemption(std::vector<ProcessParams *> &processes) : Scheduler(processes) {
+std::pair<Process *, int> PriorityWithPreemption::schedule(std::vector<Process *> &runningProcesses) {
+    return Scheduler::schedule(runningProcesses);
 }

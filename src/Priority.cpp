@@ -1,6 +1,6 @@
 
 #include "Priority.h"
 
-Priority::Priority(std::vector<ProcessParams *> &processes) : Scheduler(processes) {
-
+std::pair<Process *, int> Priority::schedule(std::vector<Process *> &runningProcesses) {
+    return Scheduler::schedule(runningProcesses);
 }
