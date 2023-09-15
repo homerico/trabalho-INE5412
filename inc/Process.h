@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include "ProcessParams.h"
+#include "Context.h"
 
 class Process {
 public:
@@ -42,6 +43,10 @@ public:
     long getTurnaroundTime();
 
     long getWaitingTime();
+    
+    void saveContext(Context* cx);
+
+    Context* getContext();
 
     void incrementDynamicPriority();
 
@@ -58,8 +63,12 @@ private:
     int finalTime;
     int waitingTime;
     int contextSwitches;
+<<<<<<< HEAD
 
     uint64_t* context;
+=======
+    Context* cx;
+>>>>>>> e3446c3 (Refactor)
 };
 
 #endif //TRABALHO_INE5412_PROCESS_H

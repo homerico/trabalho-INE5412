@@ -26,6 +26,27 @@ void CPU::run() {
     std::cout << "CPU " << id << ": Finished" << std::endl;
 }
 
+<<<<<<< HEAD
+=======
+Context* CPU::getContext() {
+	auto rgs = new uint64_t[rgsize+3];
+	rgs[0] = sp;
+	rgs[1] = pc;
+	rgs[2] = st;
+	for (int i = 0; i < rgsize; ++i) {
+		rgs[i+3] = rg[i];
+	}
+	return new Context(rgsize, rgs);
+}
+
+void CPU::loadContext(Context* cx) {
+	rg = cx->getRegisters();
+	sp = cx->getSP();
+	pc = cx->getPC();
+	st = cx->getST();
+}
+
+>>>>>>> e3446c3 (Refactor)
 /*void CPU::storeStates() {
     std::vector<std::pair<int, int>> states;
     std::pair<int, int> aux;
@@ -147,6 +168,7 @@ void CPU::processesToReadyInTime() {
             aux.push_back(process);
         }
     }
+    delete notStartedProcesses;
     notStartedProcesses = aux;
 }
 
