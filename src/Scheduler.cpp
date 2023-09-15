@@ -3,4 +3,6 @@
 #include "Scheduler.h"
 #include <utility>
 
-std::pair<Process *, int> Scheduler::schedule(std::vector<Process *> &runningProcesses) {}
+Process *Scheduler::schedule(std::vector<Process *> &waitingProcesses, Process *runningProcess) {
+    return runningProcess;
+}

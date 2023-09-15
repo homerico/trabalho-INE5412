@@ -13,8 +13,7 @@ public:
         FCFS = 1, SJF, Priority, PriorityWithPreemption, RoundRobin
     };
 
-    virtual std::pair<Process *, int> schedule(std::vector<Process *> &runningProcesses);
-protected:
+    virtual Process *schedule(std::vector<Process *> &waitingProcesses, Process *runningProcess);
 };
 
 #endif //TRABALHO_INE5412_SCHEDULER_H
