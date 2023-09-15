@@ -8,7 +8,7 @@ class PriorityWithPreemption : public Scheduler {
 public:
     PriorityWithPreemption() : Scheduler() {};
 
-    std::pair<Process *, int> schedule(std::vector<Process *> &runningProcesses) override;
+    Process *schedule(std::vector<Process *> &waitingProcesses, Process *runningProcess) override;
 };
 
 #endif //TRABALHO_INE5412_PRIORITYWITHPREEMPTION_H

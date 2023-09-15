@@ -11,16 +11,47 @@ void CPU::run() {
     std::cout << "CPU " << id << ": Running" << std::endl;
 
     do {
-        unblockProcesses();
         processesToReadyInTime();
-        std::pair<Process *, int> PAIR = scheduler->schedule(runningProcesses);
-        PAIR.first->run(PAIR.second);
-        runningTime += PAIR.second;
-        PAIR.first->addWaitingTime(PAIR.second);
-        updateRunningProcesses();
+        updateRunningProcess(
+                scheduler->schedule(waitingProcesses, runningProcess));
+        if (runningProcess != nullptr) {
+            runningProcess->execute();
+        }
+        addWaitingTimeToWaitingProcesses();
+        unblockProcesses();
+        updateWaitingProcesses();
+        runningTime++;
+        //storeStates();
     } while (!isFinished());
     std::cout << "CPU " << id << ": Finished" << std::endl;
 }
+
+/*void CPU::storeStates() {
+    std::vector<std::pair<int, int>> states;
+    std::pair<int, int> aux;
+
+    if (runningProcess != nullptr) {
+        aux = std::make_pair(runningProcess->getPid(),
+                             runningProcess->getState());
+        states.push_back(aux);
+    }
+    for (auto &process: waitingProcesses) {
+        aux = std::make_pair(process->getPid(),
+                             process->getState());
+        states.push_back(aux);
+    }
+    for (auto &process: notStartedProcesses) {
+        aux = std::make_pair(process->getPid(),
+                             process->getState());
+        states.push_back(aux);
+    }
+    for (auto &process: terminatedProcesses) {
+        aux = std::make_pair(process->getPid(),
+                             process->getState());
+        states.push_back(aux);
+    }
+    executionTimeDiagram.push_back(states);
+}*/
 
 Scheduler *CPU::getScheduler() {
     switch (this->type) {
@@ -40,37 +71,83 @@ Scheduler *CPU::getScheduler() {
     }
 }
 
-bool CPU::isFinished() {
-    bool finished = true;
-    for (auto &process: processes) {
-        finished = finished && process->isFinished();
+/*void CPU::printReport() {
+    std::cout << "\nTurnaround times:" << std::endl;
+
+    double totalTurnaroundTime = 0;
+    for (Process *process: terminatedProcesses) {
+        totalTurnaroundTime += (double) process->getTurnaroundTime();
+        std::cout << "Process " << process->getPid() << ": "
+                  << process->getTurnaroundTime() << std::endl;
     }
-    return finished;
+    std::cout << "Average: " << totalTurnaroundTime / (double) terminatedProcesses.size()
+              << std::endl << std::endl;
+
+    std::cout << "Avarege waiting times: ";
+    double totalWaitingTime = 0;
+    for (Process *process: terminatedProcesses) {
+        totalWaitingTime += (double) process->getWaitingTime();
+    }
+    std::cout << totalWaitingTime / (double) terminatedProcesses.size() << std::endl << std::endl;
+
+    std::cout << "Context switches: " << contextSwitches << std::endl << std::endl;
+
+    *//*std::cout << "Execution time diagram:" << std::endl;
+    for (auto &states: executionTimeDiagram) {
+        for (auto &state: states) {
+            std::cout << state.first << ": " << static_cast<Process::State>(state.second) << " ";
+        }
+        std::cout << std::endl;
+    }*//*
+}*/
+
+void CPU::updateRunningProcess(Process *pProcess) {
+    if (runningProcess != nullptr && runningProcess != pProcess
+        && !runningProcess->isFinished()) {
+        runningProcess->setState(Process::State::BLOCKED);
+        waitingProcesses.push_back(runningProcess);
+    }
+    runningProcess = pProcess;
+
+}
+
+void CPU::updateWaitingProcesses() {
+    if (runningProcess->isFinished()) {
+        runningProcess->setState(Process::State::TERMINATED);
+        terminatedProcesses.push_back(runningProcess);
+        runningProcess = nullptr;
+    }
 }
 
 void CPU::processesToReadyInTime() {
-    for (auto &process: processes) {
-        //FIXME: está colocando processos que já terminaram no running processes
-        if (process->getCreationTime() <= runningTime && !process->isFinished()) {
+    std::vector<Process *> aux;
+    for (auto &process: notStartedProcesses) {
+        if (process->getCreationTime() == runningTime) {
             process->setState(Process::State::READY);
-            runningProcesses.push_back(process);
+            waitingProcesses.push_back(process);
+        } else {
+            aux.push_back(process);
         }
     }
+    notStartedProcesses = aux;
+}
+
+bool CPU::isFinished() {
+    return waitingProcesses.empty()
+    && notStartedProcesses.empty()
+    && runningProcess == nullptr;
 }
 
 void CPU::unblockProcesses() {
-    for (auto &process: processes) {
+    for (auto &process: waitingProcesses) {
         if (process->getState() == Process::State::BLOCKED) {
             process->setState(Process::State::READY);
         }
     }
-
 }
 
-void CPU::updateRunningProcesses() {
-    for (unsigned i = 0; i < runningProcesses.size(); ++i) {
-        if (runningProcesses.at(i)->isFinished()) {
-            runningProcesses.erase(runningProcesses.begin() + i);
-        }
+void CPU::addWaitingTimeToWaitingProcesses(int time) {
+    for (auto &process: waitingProcesses) {
+        process->addWaitingTime(time);
     }
 }

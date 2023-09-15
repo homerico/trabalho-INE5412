@@ -10,7 +10,7 @@ public:
 
     ~Process();
 
-    void run(int time);
+    void execute(int time = 1);
 
     enum State {
         NEW = 0, READY, RUNNING, BLOCKED, TERMINATED
@@ -34,7 +34,13 @@ public:
 
     int getDuration();
 
+    int getPriority();
+
     void addWaitingTime(int time);
+
+    long getTurnaroundTime();
+
+    long getWaitingTime();
 
 private:
     unsigned pid;
@@ -45,7 +51,6 @@ private:
     int creationTime;
     int finalTime;
     int waitingTime;
-    int contextSwitches;
 };
 
 #endif //TRABALHO_INE5412_PROCESS_H

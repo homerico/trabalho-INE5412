@@ -11,12 +11,11 @@ Process::Process(ProcessParams &params, unsigned pid) {
     creationTime = params.getCreationTime();
     finalTime = 0;
     waitingTime = 0;
-    contextSwitches = 0;
 }
 
 Process::~Process() = default;
 
-void Process::run(int time) {
+void Process::execute(int time) {
     std::cout << "Process " << pid << ": Running" << std::endl;
     state = State::RUNNING;
     sleep(time);
@@ -24,14 +23,11 @@ void Process::run(int time) {
     if (duration == finalTime) {
         state = State::TERMINATED;
         std::cout << "Process " << pid << ": Terminated" << std::endl;
-    } else {
-        state = State::BLOCKED;
-        std::cout << "Process " << pid << ": Blocked" << std::endl;
     }
 }
 
 bool Process::isFinished() {
-    if (state == State::TERMINATED) {
+    if (duration == finalTime){
         return true;
     }
     return false;
@@ -47,4 +43,16 @@ int Process::getDuration() {
 
 void Process::addWaitingTime(int time) {
     waitingTime += time;
+}
+
+int Process::getPriority() {
+    return priority;
+}
+
+long Process::getTurnaroundTime() {
+    return duration + waitingTime;
+}
+
+long Process::getWaitingTime() {
+    return waitingTime;
 }

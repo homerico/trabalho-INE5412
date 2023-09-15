@@ -9,7 +9,7 @@ class FCFS : public Scheduler {
 public:
     explicit FCFS() : Scheduler() {};
 
-    std::pair<Process *, int> schedule(std::vector<Process *> &runningProcesses) override;
+    Process *schedule(std::vector<Process *> &waitingProcesses, Process *runningProcess) override;
 };
 
 #endif //TRABALHO_INE5412_FCFS_H

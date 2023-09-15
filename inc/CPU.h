@@ -3,6 +3,7 @@
 #define TRABALHO_INE5412_CPU_H
 
 #include <vector>
+#include <map>
 #include "Context.h"
 #include "ProcessParams.h"
 #include "Scheduler.h"
@@ -18,32 +19,39 @@ public:
         type = Scheduler::Type(alg);
         scheduler = getScheduler();
         runningTime = 0;
+        contextSwitches = 0;
 
         for (unsigned i = 0; i < processParams.size(); i++) {
             ProcessParams processParams1 = *processParams[i];
-            processes.push_back(new Process(processParams1, i));
+            notStartedProcesses.push_back(new Process(processParams1, i));
         }
     }
 
     ~CPU() {
         delete scheduler;
-        for (auto p : processes) {
+        for (auto p : terminatedProcesses) {
             delete p;
         }
     };
 
     void run();
 
+    void printReport();
+
 private:
     // static variables
     const char *id = "INE5412";
 
     // instance variables
+    int contextSwitches;
     int runningTime;
+    Process *runningProcess;
     Scheduler *scheduler;
     Scheduler::Type type;
-    std::vector<Process *> processes;
-    std::vector<Process *> runningProcesses;
+    //std::vector<std::vector<std::pair<int, int>>> executionTimeDiagram;
+    std::vector<Process *> notStartedProcesses;
+    std::vector<Process *> waitingProcesses;
+    std::vector<Process *> terminatedProcesses;
 
     // methods
     bool isFinished();
@@ -54,7 +62,13 @@ private:
 
     void unblockProcesses();
 
-    void updateRunningProcesses();
+    void updateWaitingProcesses();
+
+    void addWaitingTimeToWaitingProcesses(int time = 1);
+
+    void updateRunningProcess(Process *pProcess);
+
+    void storeStates();
 };
 
 #endif //TRABALHO_INE5412_CPU_H

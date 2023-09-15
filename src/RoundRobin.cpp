@@ -1,6 +1,6 @@
 
 #include "RoundRobin.h"
 
-std::pair<Process *, int> RoundRobin::schedule(std::vector<Process *> &runningProcesses) {
-    return Scheduler::schedule(runningProcesses);
+Process *RoundRobin::schedule(std::vector<Process *> &waitingProcesses, Process *runningProcess) {
+    return Scheduler::schedule(waitingProcesses, runningProcess);
 }
