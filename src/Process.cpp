@@ -11,6 +11,7 @@ Process::Process(ProcessParams &params, unsigned pid) {
     creationTime = params.getCreationTime();
     finalTime = 0;
     waitingTime = 0;
+    dynamicPriority = 0;
 }
 
 Process::~Process() = default;
@@ -55,4 +56,12 @@ long Process::getTurnaroundTime() {
 
 long Process::getWaitingTime() {
     return waitingTime;
+}
+
+void Process::incrementDynamicPriority() {
+    dynamicPriority++;
+}
+
+int Process::getDynamicPriority() {
+    return dynamicPriority;
 }

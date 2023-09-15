@@ -42,6 +42,10 @@ public:
 
     long getWaitingTime();
 
+    void incrementDynamicPriority();
+
+    int getDynamicPriority();
+
 private:
     unsigned pid;
     int state;
@@ -49,6 +53,7 @@ private:
     int priority;
     int duration;
     int creationTime;
+    int dynamicPriority;
     int finalTime;
     int waitingTime;
 };

@@ -63,7 +63,7 @@ private:
 int main () {
     int option;
 
-    File f("../src/entrada.txt");
+    File f("src/entrada.txt");
     f.read_file();
     f.print_processes_params();
     cout << endl;
