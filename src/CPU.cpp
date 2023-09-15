@@ -15,6 +15,7 @@ void CPU::run() {
         updateRunningProcess(
                 scheduler->schedule(waitingProcesses, runningProcess));
         if (runningProcess != nullptr) {
+	    loadContext(runningProcess->getContext());
             runningProcess->execute();
         }
         addWaitingTimeToWaitingProcesses();
@@ -145,6 +146,7 @@ void CPU::updateRunningProcess(Process *pProcess) {
     if (runningProcess != nullptr && runningProcess != pProcess
         && !runningProcess->isFinished()) {
         runningProcess->setState(Process::State::BLOCKED);
+	runningProcess->saveContext(getContext());
         waitingProcesses.push_back(runningProcess);
     }
     runningProcess = pProcess;
