@@ -7,6 +7,7 @@
 
 class Scheduler {
 public:
+    Scheduler() = default;
     virtual ~Scheduler() = default;
 
     enum Type {

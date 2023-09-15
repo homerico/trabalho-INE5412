@@ -108,7 +108,6 @@ void CPU::updateRunningProcess(Process *pProcess) {
         waitingProcesses.push_back(runningProcess);
     }
     runningProcess = pProcess;
-
 }
 
 void CPU::updateWaitingProcesses() {

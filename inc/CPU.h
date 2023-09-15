@@ -20,6 +20,7 @@ public:
         scheduler = getScheduler();
         runningTime = 0;
         contextSwitches = 0;
+        runningProcess = nullptr;
 
         for (unsigned i = 0; i < processParams.size(); i++) {
             ProcessParams processParams1 = *processParams[i];
