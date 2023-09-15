@@ -168,7 +168,6 @@ void CPU::processesToReadyInTime() {
             aux.push_back(process);
         }
     }
-    delete notStartedProcesses;
     notStartedProcesses = aux;
 }
 

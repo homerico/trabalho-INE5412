@@ -8,7 +8,7 @@
 
 class Process {
 public:
-    Process(ProcessParams &params, unsigned pid);
+    Process(ProcessParams &params, unsigned pid, Context *cx);
 
     ~Process();
 

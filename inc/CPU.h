@@ -23,6 +23,7 @@ public:
         contextSwitches = 0;
         runningProcess = nullptr;
 
+	// initialize empty registers
 	rg = new uint64_t[rgsize];
 	for (int i = 0; i < rgsize; ++i)
 		rg[i] = 0;
@@ -30,9 +31,11 @@ public:
 	pc = 0;
 	st = 0;
 
+	Context* cx = getContext(); // context to initialize processes
+	
         for (unsigned i = 0; i < processParams.size(); i++) {
             ProcessParams processParams1 = *processParams[i];
-            notStartedProcesses.push_back(new Process(processParams1, i));
+            notStartedProcesses.push_back(new Process(processParams1, i, cx));
         }
     }
 

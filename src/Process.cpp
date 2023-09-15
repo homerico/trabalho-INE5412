@@ -3,8 +3,9 @@
 #include <iostream>
 #include "Process.h"
 
-Process::Process(ProcessParams &params, unsigned pid) {
+Process::Process(ProcessParams &params, unsigned pid, Context *cx) {
     this->pid = pid;
+    this->cx = cx;
     state = State::NEW;
     priority = params.getPriority();
     duration = params.getDuration();
