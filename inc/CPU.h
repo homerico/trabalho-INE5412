@@ -48,15 +48,9 @@ public:
 
     void 	run();
 
-<<<<<<< HEAD
     void printReport();
-    Context*	saveContext();
-    void	loadContext(Context* cx);
-=======
     Context*	getContext();
     void	loadContext(Context* cx);
-    void 	printReport();
->>>>>>> e3446c3 (Refactor)
 
 private:
     // static variables
