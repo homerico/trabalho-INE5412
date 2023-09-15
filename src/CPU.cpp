@@ -64,7 +64,7 @@ Scheduler *CPU::getScheduler() {
         case Scheduler::PriorityWithPreemption:
             return new PriorityWithPreemption();
         case Scheduler::RoundRobin:
-            return new RoundRobin();
+            return new RoundRobin(2);
         default:
             std::cout << "CPU " << id << ": Invalid scheduler" << std::endl;
             return nullptr;
