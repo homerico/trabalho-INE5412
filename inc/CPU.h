@@ -13,7 +13,8 @@
 #include "PriorityWithPreemption.h"
 #include "RoundRobin.h"
 
-class CPU {
+class CPU
+{
 public:
     CPU(int alg, const std::vector<ProcessParams *> &processParams) {
         type = Scheduler::Type(alg);
@@ -21,6 +22,13 @@ public:
         runningTime = 0;
         contextSwitches = 0;
         runningProcess = nullptr;
+
+	rg = new uint64_t[rgsize];
+	for (int i = 0; i < rgsize; ++i)
+		rg[i] = 0;
+	sp = 0;
+	pc = 0;
+	st = 0;
 
         for (unsigned i = 0; i < processParams.size(); i++) {
             ProcessParams processParams1 = *processParams[i];
@@ -38,10 +46,19 @@ public:
     void run();
 
     void printReport();
+    Context*	saveContext();
+    void	loadContext(Context* cx);
 
 private:
     // static variables
     const char *id = "INE5412";
+    const int rgsize = 6;
+
+    // registers
+    uint64_t *rg;
+    uint64_t sp;
+    uint64_t pc;
+    uint64_t st;
 
     // instance variables
     int contextSwitches;
