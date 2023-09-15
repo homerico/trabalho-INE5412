@@ -59,6 +59,14 @@ long Process::getWaitingTime() {
     return waitingTime;
 }
 
+void Process::saveContext(Context* cx) {
+	this->cx = cx;
+}
+
+Context* Process::getContext() {
+	return cx;
+}
+
 void Process::incrementDynamicPriority() {
     dynamicPriority++;
 }
