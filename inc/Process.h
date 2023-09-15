@@ -2,6 +2,7 @@
 #ifndef TRABALHO_INE5412_PROCESS_H
 #define TRABALHO_INE5412_PROCESS_H
 
+#include <cstdint>
 #include "ProcessParams.h"
 
 class Process {
@@ -56,6 +57,9 @@ private:
     int dynamicPriority;
     int finalTime;
     int waitingTime;
+    int contextSwitches;
+
+    uint64_t* context;
 };
 
 #endif //TRABALHO_INE5412_PROCESS_H
