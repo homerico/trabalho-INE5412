@@ -22,6 +22,7 @@ void CPU::run() {
 	if (runningProcess != nullptr) {
 	    loadContext(runningProcess->getContext());
             runningProcess->execute();
+	    contextSwitches++;
         }
 
         addWaitingTimeToWaitingProcesses();
@@ -71,7 +72,9 @@ Scheduler *CPU::getScheduler() {
     }
 }
 
-/*void CPU::printReport() {
+void CPU::printReport() {
+    std::cout << "\nScheduler Report!" << std::endl;
+
     std::cout << "\nTurnaround times:" << std::endl;
 
     double totalTurnaroundTime = 0;
@@ -91,15 +94,7 @@ Scheduler *CPU::getScheduler() {
     std::cout << totalWaitingTime / (double) terminatedProcesses.size() << std::endl << std::endl;
 
     std::cout << "Context switches: " << contextSwitches << std::endl << std::endl;
-
-    *//*std::cout << "Execution time diagram:" << std::endl;
-    for (auto &states: executionTimeDiagram) {
-        for (auto &state: states) {
-            std::cout << state.first << ": " << static_cast<Process::State>(state.second) << " ";
-        }
-        std::cout << std::endl;
-    }*//*
-}*/
+}
 
 void CPU::updateRunningProcess(Process *pProcess) {
     if (runningProcess != nullptr && runningProcess != pProcess
