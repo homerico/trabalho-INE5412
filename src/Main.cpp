@@ -60,10 +60,15 @@ private:
     vector<ProcessParams *> processes;
 };
 
-int main () {
+int main (int argc, char* argv[]) {
     int option;
 
-    File f("src/entrada1.txt");
+    if (argc < 2) {
+	    cout << "Por favor, chame o programa com o arquivo de entrada como argumento." << endl;
+	    return 0;
+    }
+
+    File f(argv[1]);
     f.read_file();
     f.print_processes_params();
     cout << endl;
