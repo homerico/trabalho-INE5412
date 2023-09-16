@@ -8,20 +8,29 @@
 #include "RoundRobin.h"
 
 void CPU::run() {
+    // Prints de inicialização
     std::cout << "CPU " << id << ": Running" << std::endl;
     logger->printHeader();
+    
+    // Ciclo de relógio
     do {
         processesToReadyInTime();
         updateRunningProcess(
-                scheduler->schedule(waitingProcesses, runningProcess));
-        if (runningProcess != nullptr) {
+                scheduler->schedule(waitingProcesses, runningProcess)
+	);
+        
+	if (runningProcess != nullptr) {
 	    loadContext(runningProcess->getContext());
             runningProcess->execute();
         }
+
         addWaitingTimeToWaitingProcesses();
         unblockProcesses();
         updateWaitingProcesses();
-        logger->printState(runningTime++, processes);
+        
+	logger->printState(runningTime, processes);
+	
+	runningTime++;
     } while (!isFinished());
     std::cout << "CPU " << id << ": Finished" << std::endl;
 }

@@ -15,10 +15,11 @@
 #include "Priority.h"
 #include "PriorityWithPreemption.h"
 #include "RoundRobin.h"
+using std::vector;
 
-class CPU
-{
+class CPU {
 public:
+
     CPU(int alg, const std::vector<ProcessParams *> &processParams) {
         type = Scheduler::Type(alg);
         scheduler = getScheduler();
@@ -26,7 +27,7 @@ public:
         contextSwitches = 0;
         runningProcess = nullptr;
 
-	// initialize empty registers
+	// Inicializa registradores vazios
 	rg = new uint64_t[rgsize];
 	for (int i = 0; i < rgsize; ++i)
 		rg[i] = 0;
@@ -34,13 +35,15 @@ public:
 	pc = 0;
 	st = 0;
 
-	Context* cx = getContext(); // context to initialize processes
+	Context* cx = getContext(); // Contexto vazio usado para inicializar processos
 	
         for (unsigned i = 0; i < processParams.size(); i++) {
-            ProcessParams processParams1 = *processParams[i];
-	    auto p = new Process(processParams1, i, cx);
+            ProcessParams pParams = *processParams[i];
+	    auto p = new Process(pParams, i, cx);
+	    
 	    processes.push_back(p);
-            notStartedProcesses.push_back(p);
+            
+	    notStartedProcesses.push_back(p);
         }
 
 	logger = new Logger(std::cout.rdbuf(), processParams.size());
@@ -54,51 +57,45 @@ public:
     };
 
     void 	run();
-
-    void printReport();
-    Context*	getContext();
-    void	loadContext(Context* cx);
+    void 	printReport();
 
 private:
     Logger* logger;
 
-    // static variables
-    const char *id = "INE5412";
-    const int rgsize = 6;
+    // Constantes
+    const char*	id = "INE5412";
+    const int 	rgsize = 6;
 
-    // registers
+    // Registradores
     uint64_t *rg;
     uint64_t sp;
     uint64_t pc;
     uint64_t st;
 
-    // instance variables
-    int contextSwitches;
-    int runningTime;
-    Process *runningProcess;
-    Scheduler *scheduler;
-    Scheduler::Type type;
-    std::vector<Process*> processes;
-    std::vector<Process*> notStartedProcesses;
-    std::vector<Process*> waitingProcesses;
-    std::vector<Process*> terminatedProcesses;
+    // Instancias
+    int 		contextSwitches;
+    int 		runningTime;
+    Process*		runningProcess;
+    Scheduler*		scheduler;
+    Scheduler::Type 	type;
+    vector<Process*> 	processes;
+    vector<Process*> 	notStartedProcesses;
+    vector<Process*> 	waitingProcesses;
+    vector<Process*> 	terminatedProcesses;
 
-    // methods
-    bool isFinished();
+    // Metodos
+    bool 	isFinished();
+    Scheduler* 	getScheduler();
+    void 	processesToReadyInTime();
+    void 	unblockProcesses();
+    void 	updateWaitingProcesses();
+    void 	addWaitingTimeToWaitingProcesses(int time = 1);
+    void 	updateRunningProcess(Process* pProcess);
+    void 	storeStates();
+    Context*	getContext();
+    void	loadContext(Context* cx);
 
-    Scheduler *getScheduler();
 
-    void processesToReadyInTime();
-
-    void unblockProcesses();
-
-    void updateWaitingProcesses();
-
-    void addWaitingTimeToWaitingProcesses(int time = 1);
-
-    void updateRunningProcess(Process *pProcess);
-
-    void storeStates();
 };
 
 #endif //TRABALHO_INE5412_CPU_H
