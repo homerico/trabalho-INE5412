@@ -18,13 +18,13 @@ Process::Process(ProcessParams &params, unsigned pid, Context *cx) {
 Process::~Process() = default;
 
 void Process::execute(int time) {
-    std::cout << "Process " << pid << ": Running" << std::endl;
+    //std::cout << "Process " << pid << ": Running" << std::endl;
     state = State::RUNNING;
     sleep(time);
     finalTime += time;
     if (duration == finalTime) {
         state = State::TERMINATED;
-        std::cout << "Process " << pid << ": Terminated" << std::endl;
+        //std::cout << "Process " << pid << ": Terminated" << std::endl;
     }
 }
 
