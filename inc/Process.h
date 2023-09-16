@@ -8,12 +8,11 @@
 
 class Process {
 public:
+
     Process(ProcessParams &params, unsigned pid, Context *cx);
 
     ~Process();
-
-    void execute(int time = 1);
-
+    
     enum State {
         NEW = 0, READY, RUNNING, BLOCKED, TERMINATED
     };
@@ -32,40 +31,31 @@ public:
         this->state = state;
     }
 
-    int getCreationTime();
-
-    int getDuration();
-
-    int getPriority();
-
-    void addWaitingTime(int time);
-
-    long getTurnaroundTime();
-
-    long getWaitingTime();
-    
-    void saveContext(Context* cx);
-
-    Context* getContext();
-
-    void incrementDynamicPriority();
-
-    int getDynamicPriority();
+    void 	execute(int time = 1);
+    int 	getCreationTime();
+    int 	getDuration();
+    int 	getPriority();
+    void 	addWaitingTime(int time);
+    long 	getTurnaroundTime();
+    long 	getWaitingTime();
+    void 	saveContext(Context* cx);
+    Context* 	getContext();
+    void 	incrementDynamicPriority();
+    int 	getDynamicPriority();
 
 private:
-    unsigned pid;
-    int state;
+    unsigned 	pid;
+    int 	state;
 
-    int priority;
-    int duration;
-    int creationTime;
-    int dynamicPriority;
-    int finalTime;
-    int waitingTime;
-    int contextSwitches;
+    int 	priority;
+    int 	duration;
+    int 	creationTime;
+    int 	dynamicPriority;
+    int 	finalTime;
+    int 	waitingTime;
+    int 	contextSwitches;
 
-    uint64_t* context;
-    Context* cx;
+    Context* 	cx;
 };
 
 #endif //TRABALHO_INE5412_PROCESS_H

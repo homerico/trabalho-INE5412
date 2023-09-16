@@ -20,6 +20,7 @@ public:
 
 	void printHeader();	
 	void printState(int runningTime, vector<Process*> processess);
+
 private:
 	std::ostream out;
 	char* obuf;
