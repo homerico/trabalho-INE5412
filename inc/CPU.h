@@ -2,8 +2,11 @@
 #ifndef TRABALHO_INE5412_CPU_H
 #define TRABALHO_INE5412_CPU_H
 
+#include <iostream>
+
 #include <vector>
 #include <map>
+#include "Logger.h"
 #include "Context.h"
 #include "ProcessParams.h"
 #include "Scheduler.h"
@@ -35,8 +38,12 @@ public:
 	
         for (unsigned i = 0; i < processParams.size(); i++) {
             ProcessParams processParams1 = *processParams[i];
-            notStartedProcesses.push_back(new Process(processParams1, i, cx));
+	    auto p = new Process(processParams1, i, cx);
+	    processes.push_back(p);
+            notStartedProcesses.push_back(p);
         }
+
+	logger = new Logger(std::cout.rdbuf(), processParams.size());
     }
 
     ~CPU() {
@@ -53,6 +60,8 @@ public:
     void	loadContext(Context* cx);
 
 private:
+    Logger* logger;
+
     // static variables
     const char *id = "INE5412";
     const int rgsize = 6;
@@ -69,10 +78,10 @@ private:
     Process *runningProcess;
     Scheduler *scheduler;
     Scheduler::Type type;
-    //std::vector<std::vector<std::pair<int, int>>> executionTimeDiagram;
-    std::vector<Process *> notStartedProcesses;
-    std::vector<Process *> waitingProcesses;
-    std::vector<Process *> terminatedProcesses;
+    std::vector<Process*> processes;
+    std::vector<Process*> notStartedProcesses;
+    std::vector<Process*> waitingProcesses;
+    std::vector<Process*> terminatedProcesses;
 
     // methods
     bool isFinished();

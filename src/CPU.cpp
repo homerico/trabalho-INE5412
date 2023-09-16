@@ -9,7 +9,7 @@
 
 void CPU::run() {
     std::cout << "CPU " << id << ": Running" << std::endl;
-
+    logger->printHeader();
     do {
         processesToReadyInTime();
         updateRunningProcess(
@@ -21,8 +21,7 @@ void CPU::run() {
         addWaitingTimeToWaitingProcesses();
         unblockProcesses();
         updateWaitingProcesses();
-        runningTime++;
-        //storeStates();
+        logger->printState(runningTime++, processes);
     } while (!isFinished());
     std::cout << "CPU " << id << ": Finished" << std::endl;
 }
@@ -44,33 +43,6 @@ void CPU::loadContext(Context* cx) {
 	pc = cx->getPC();
 	st = cx->getST();
 }
-
-/*void CPU::storeStates() {
-    std::vector<std::pair<int, int>> states;
-    std::pair<int, int> aux;
-
-    if (runningProcess != nullptr) {
-        aux = std::make_pair(runningProcess->getPid(),
-                             runningProcess->getState());
-        states.push_back(aux);
-    }
-    for (auto &process: waitingProcesses) {
-        aux = std::make_pair(process->getPid(),
-                             process->getState());
-        states.push_back(aux);
-    }
-    for (auto &process: notStartedProcesses) {
-        aux = std::make_pair(process->getPid(),
-                             process->getState());
-        states.push_back(aux);
-    }
-    for (auto &process: terminatedProcesses) {
-        aux = std::make_pair(process->getPid(),
-                             process->getState());
-        states.push_back(aux);
-    }
-    executionTimeDiagram.push_back(states);
-}*/
 
 Scheduler *CPU::getScheduler() {
     switch (this->type) {
