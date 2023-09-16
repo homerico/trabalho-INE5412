@@ -102,7 +102,7 @@ int main (int argc, char* argv[]) {
 
         CPU cpu(option, f.getProcessParams());
         cpu.run();
-        //cpu.printReport();
+        cpu.printReport();
     } while (true);
 
     return 0;
